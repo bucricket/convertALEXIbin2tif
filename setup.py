@@ -15,7 +15,7 @@ setup(
     description="Convert all ALEXI bin to geotiffs",
     author="Mitchell Schull",
     author_email="mitch.schull@noaa.gov",
-    #url="https://github.com/bucricket/projectMAS.git",
+    url="https://github.com/bucricket/convertALEXIbin2tif.git",
     packages= ['convertALEXIbin2tif'],
     platforms='Posix; MacOS X; Windows',
     license='BSD 3-Clause',
