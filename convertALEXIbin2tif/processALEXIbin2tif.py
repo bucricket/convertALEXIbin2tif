@@ -76,7 +76,7 @@ def main():
         inUL = [ULlon,ULlat]   
         convertBin2tif(inFile,inUL,ALEXIshape,ALEXIres)
         if remove==1:
-            shutil.rmtree(inFile)
+            os.remove(inFile)
 
 
 if __name__ == "__main__":
