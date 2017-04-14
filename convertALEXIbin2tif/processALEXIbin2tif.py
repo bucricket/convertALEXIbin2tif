@@ -8,7 +8,8 @@ Created on Thu Apr 13 15:18:16 2017
 import numpy as np
 from osgeo import osr,gdal
 import os
-import glob
+import shutil
+import argparse
 
 def writeArray2Tiff(data,res,UL,inProjection,outfile,outFormat):
 
@@ -59,6 +60,12 @@ for dirpath, dirnames, filenames in os.walk("."):
         files2convert.append(os.path.join(dirpath, filename))
 
 def main():
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("remove", type=float, help="remove old files")
+    args = parser.parse_args()
+    remove = args.remove
+
     for inFile in files2convert:
         # get UL lat/lon
         tile = int(inFile.split(os.sep)[-1].split('_')[-1][1:4])
@@ -68,6 +75,8 @@ def main():
         ULlon=(-180.+(col-1.)*15.)      
         inUL = [ULlon,ULlat]   
         convertBin2tif(inFile,inUL,ALEXIshape,ALEXIres)
+        if remove==1:
+            shutil.rmtree(inFile)
 
 
 if __name__ == "__main__":
