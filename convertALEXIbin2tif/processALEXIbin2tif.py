@@ -8,7 +8,6 @@ Created on Thu Apr 13 15:18:16 2017
 import numpy as np
 from osgeo import osr,gdal
 import os
-import shutil
 import argparse
 
 def writeArray2Tiff(data,res,UL,inProjection,outfile,outFormat):
@@ -54,17 +53,20 @@ ALEXIres = [0.004,0.004]
 #ALEXIfolder = '/Users/mschull/umdGD/data/VIIRS_GLOBAL_PROCESS/tiles/T063/' 
 #ALEXIfolder = os.getcwd()   
 #files2convert = glob.glob(os.path.join(ALEXIfolder,'FINAL_EDAY*.dat'))
-files2convert = []
-for dirpath, dirnames, filenames in os.walk("."):
-    for filename in [f for f in filenames if (f.startswith("FINAL_EDAY") & f.endswith(".dat"))]:
-        files2convert.append(os.path.join(dirpath, filename))
+
 
 def main():
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("remove", type=float, help="remove old files")
+    parser.add_argument("remove", type=float, help="1 to remove old files, 0 to keep them")
+    parser.add_argument("fileStart", type=float, help="constant part of files to convert")
     args = parser.parse_args()
     remove = args.remove
+    fileStart = args.fileStart
+    files2convert = []
+    for dirpath, dirnames, filenames in os.walk("."):
+        for filename in [f for f in filenames if (f.startswith(fileStart) & f.endswith(".dat"))]:
+            files2convert.append(os.path.join(dirpath, filename))
 
     for inFile in files2convert:
         # get UL lat/lon
