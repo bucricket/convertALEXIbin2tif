@@ -59,7 +59,7 @@ def main():
     
     parser = argparse.ArgumentParser()
     parser.add_argument("remove", type=float, help="1 to remove old files, 0 to keep them")
-    parser.add_argument("fileStart", type=float, help="constant part of files to convert")
+    parser.add_argument("fileStart", type=str, help="constant part of files to convert")
     args = parser.parse_args()
     remove = args.remove
     fileStart = args.fileStart
