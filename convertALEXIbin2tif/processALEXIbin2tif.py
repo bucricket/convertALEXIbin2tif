@@ -42,9 +42,10 @@ def writeArray2Tiff(data,res,UL,inProjection,outfile,outFormat):
     
 def convertBin2tif(inFile,inUL,shape,res):
     inProj4 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-    outFormat = gdal.GDT_Float32
+    outFormat = gdal.GDT_UInt16
     read_data = np.fromfile(inFile, dtype=np.float32)
     dataset = np.flipud(read_data.reshape([shape[0],shape[1]]))
+    dataset = np.array(dataset*1000,dtype='uint16')
     outTif = inFile[:-4]+".tif"
     writeArray2Tiff(dataset,res,inUL,inProj4,outTif,outFormat) 
     
